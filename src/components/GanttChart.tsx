@@ -92,6 +92,7 @@ const GanttChart = () => {
 			{/* Events (rows) */}
 			{events.map((event) => (
 				<div
+					key={event.id}
 					className={`relative grid overflow-x-hidden border-b bg-neutral-100`}
 					style={{
 						gridTemplateColumns: `repeat(${amountOfDaysToSee}, 1fr)`,
@@ -101,8 +102,9 @@ const GanttChart = () => {
 					{days.map((day) => (
 						<div key={day.toString()} className='h-16 w-32 border-r'></div>
 					))}
+
+					{/* Event itself */}
 					<div
-						key={event.id}
 						className='absolute top-2 flex h-12 select-none overflow-hidden rounded-md'
 						style={{
 							left: `${(differenceInMinutes(event.start, firstDayInTheView) / (60 * 24)) * gridColWidth}px`,
