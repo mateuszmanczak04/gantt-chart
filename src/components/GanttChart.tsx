@@ -89,42 +89,41 @@ const GanttChart = () => {
 				))}
 			</div>
 
-			{/* Row */}
-			<div
-				className={`relative grid overflow-x-hidden bg-neutral-100`}
-				style={{
-					gridTemplateColumns: `repeat(${amountOfDaysToSee}, 1fr)`,
-					width: `${gridColWidth * amountOfDaysToSee}px`,
-				}}>
-				{/* Background boxes */}
-				{days.map((day) => (
-					<div key={day.toString()} className='h-16 w-32 border-r'></div>
-				))}
-
-				{/* Events */}
-				{events.map((event) => (
+			{/* Events (rows) */}
+			{events.map((event) => (
+				<div
+					className={`relative grid overflow-x-hidden border-b bg-neutral-100`}
+					style={{
+						gridTemplateColumns: `repeat(${amountOfDaysToSee}, 1fr)`,
+						width: `${gridColWidth * amountOfDaysToSee}px`,
+					}}>
+					{/* Background boxes */}
+					{days.map((day) => (
+						<div key={day.toString()} className='h-16 w-32 border-r'></div>
+					))}
 					<div
 						key={event.id}
-						className='absolute top-2 flex h-12 select-none overflow-hidden rounded-md bg-blue-400'
+						className='absolute top-2 flex h-12 select-none overflow-hidden rounded-md'
 						style={{
 							left: `${(differenceInMinutes(event.start, firstDayInTheView) / (60 * 24)) * gridColWidth}px`,
 							width: `${(differenceInMinutes(event.end, event.start) / 60 / 24) * gridColWidth}px`,
+							backgroundColor: event.color,
 						}}>
 						{/* Left resizer */}
-						<div className='h-full w-4 cursor-ew-resize bg-blue-500'></div>
+						<div className='h-full w-4 cursor-ew-resize bg-white/25'></div>
 
 						{/* Cener */}
 						<div
-							className='grid flex-1 cursor-move place-content-center bg-blue-400 text-sm text-white'
+							className='grid flex-1 cursor-move place-content-center text-sm text-white'
 							onMouseDown={(e) => handleMouseDown(e, event.id)}>
 							{event.name}
 						</div>
 
 						{/* Right resizer */}
-						<div className='h-full w-4 cursor-ew-resize bg-blue-500'></div>
+						<div className='h-full w-4 cursor-ew-resize bg-white/25'></div>
 					</div>
-				))}
-			</div>
+				</div>
+			))}
 		</div>
 	);
 };
